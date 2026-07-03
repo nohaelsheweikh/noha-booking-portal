@@ -1,29 +1,37 @@
 import { NOHA_EMAIL } from "../../constants/config";
+import { HOST_NAME } from "../../constants/copy";
 
 const STATUS_COPY = {
   sending: {
     emoji: "📨",
-    title: "Sending to Noha…",
-    text: `Emailing ${NOHA_EMAIL} with the calendar invite.`,
+    title: "Sending emails…",
+    text: `Notifying ${HOST_NAME} at ${NOHA_EMAIL} and sending you a confirmation.`,
   },
-  sent: {
+  "sent-both": {
     emoji: "✅",
-    title: "Noha has been notified!",
-    text: `Booking sent to ${NOHA_EMAIL} with a calendar invite attached. She can open the .ics file or use the Google Calendar link in the email.`,
+    title: "Both emails sent!",
+    text: `${HOST_NAME} got the booking request and you should receive a confirmation in your inbox. Check spam too.`,
+  },
+  "sent-partial": {
+    emoji: "⚠️",
+    title: "One email sent",
+    text: "Only part of the email setup worked. Use the manual email buttons below if needed.",
+    showRetry: true,
   },
   error: {
     emoji: "⚠️",
-    title: "Email couldn't be sent",
-    text: "The booking was saved, but the email failed. Use the calendar buttons below or copy the link for Noha.",
+    title: "Emails couldn't be sent",
+    text: "Auto-email failed. Use the buttons below to email manually or add to calendar.",
+    showRetry: true,
   },
   "not-configured": {
     emoji: "📋",
-    title: "Share manually for now",
-    text: `Email auto-send isn't set up yet. Use the calendar buttons below or copy the link for ${NOHA_EMAIL}.`,
+    title: "Auto-email not set up yet",
+    text: "Use the email buttons below to send confirmations manually, or set up Web3Forms + EmailJS (see README).",
   },
 };
 
-export default function NotificationStatus({ status }) {
+export default function NotificationStatus({ status, onRetry }) {
   if (status === "idle") return null;
 
   const copy = STATUS_COPY[status];
@@ -35,6 +43,11 @@ export default function NotificationStatus({ status }) {
       <div>
         <strong>{copy.title}</strong>
         <p>{copy.text}</p>
+        {copy.showRetry && onRetry && (
+          <button type="button" className="btn-retry-email" onClick={onRetry}>
+            Try sending again
+          </button>
+        )}
       </div>
     </div>
   );

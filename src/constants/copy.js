@@ -13,9 +13,10 @@ export const PACKAGE_STEP_DESC =
   "Select your meeting package. All options require surviving the scheduling process.";
 
 export const DETAILS_STEP_DESC =
-  "Almost there. We'll notify Noha and generate calendar invites for both of you.";
+  "We'll email Noha and send you a confirmation — both with calendar links.";
 
 export const GUEST_NAME_PLACEHOLDER = "So Noha knows who's requesting her time";
+export const GUEST_EMAIL_PLACEHOLDER = "You'll get a confirmation email from Noha here";
 
 export const TICKET_TITLE = "Appointment with Noha — Access Granted";
 
@@ -25,6 +26,7 @@ export const LOADING_MESSAGES = [
   "Consulting the Noha Scheduling Office…",
   "Verifying you meet the minimum gossip requirements…",
   "Generating calendar invites before she gets booked…",
+  "Sending confirmation emails to both of you…",
 ];
 
 export const FINE_PRINT =

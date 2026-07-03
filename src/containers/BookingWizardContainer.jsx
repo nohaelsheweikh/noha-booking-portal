@@ -16,6 +16,7 @@ export default function BookingWizardContainer({ wizard }) {
     pkg,
     level,
     guestName,
+    guestEmail,
     loading,
     loadingMsg,
     setDate,
@@ -23,6 +24,7 @@ export default function BookingWizardContainer({ wizard }) {
     setPkg,
     setLevel,
     setGuestName,
+    setGuestEmail,
     handleNext,
     goBack,
   } = wizard;
@@ -40,6 +42,7 @@ export default function BookingWizardContainer({ wizard }) {
         pkg={pkg}
         level={level}
         guestName={guestName}
+        guestEmail={guestEmail}
         loading={loading}
         loadingMsg={loadingMsg}
         onDateChange={setDate}
@@ -47,6 +50,7 @@ export default function BookingWizardContainer({ wizard }) {
         onPackageChange={setPkg}
         onLevelChange={setLevel}
         onGuestNameChange={setGuestName}
+        onGuestEmailChange={setGuestEmail}
         onSubmit={handleNext}
         onBack={goBack}
       />

@@ -1094,6 +1094,73 @@ body {
   background: #fafafa;
 }
 
+.btn-retry-email {
+  margin-top: 10px;
+  padding: 8px 14px;
+  border: 1.5px solid var(--purple);
+  border-radius: 10px;
+  background: white;
+  color: var(--purple);
+  font-weight: 700;
+  font-size: 0.85rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.btn-email-noha {
+  display: block;
+  width: 100%;
+  margin-bottom: 14px;
+  padding: 15px 18px;
+  border-radius: 14px;
+  background: #1a73e8;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.btn-email-noha:hover {
+  opacity: 0.92;
+}
+
+.email-fallbacks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.btn-email-guest {
+  display: block;
+  width: 100%;
+  padding: 15px 18px;
+  border-radius: 14px;
+  background: var(--purple);
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.btn-email-guest:hover {
+  opacity: 0.92;
+}
+
+.notification-status.status-sent-both {
+  border-color: #8fd4a8;
+  background: linear-gradient(135deg, #f0fff5, #f8fffb);
+}
+
+.notification-status.status-sent-partial {
+  border-color: #e8c88f;
+  background: #fffbf0;
+}
+
 .ticket {
   position: relative;
   background: white;

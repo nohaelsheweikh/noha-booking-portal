@@ -7,6 +7,7 @@ import {
 } from "../constants/booking";
 import { NOHA_EMAIL } from "../constants/config";
 import { buildDualCalendarEvents, parseShareParams } from "../utils/calendar";
+import { isValidEmail } from "../utils/emailValidation";
 import { useApprovalLoading } from "./useApprovalLoading";
 
 export function useBookingWizard() {
@@ -16,6 +17,7 @@ export function useBookingWizard() {
   const [pkg, setPkg] = useState(DEFAULT_PACKAGE);
   const [level, setLevel] = useState(DEFAULT_SERIOUSNESS);
   const [guestName, setGuestName] = useState("");
+  const [guestEmail, setGuestEmail] = useState("");
   const [booking, setBooking] = useState(null);
   const [loading, setLoading] = useState(false);
   const [loadingMsg, setLoadingMsg] = useState("");
@@ -23,18 +25,28 @@ export function useBookingWizard() {
 
   const finalizeBooking = useCallback(() => {
     const resolvedGuest = guestName.trim() || "A brave soul";
+    const resolvedEmail = guestEmail.trim();
     const events = buildDualCalendarEvents({
       date,
       time,
       pkg,
       level,
       guestName: resolvedGuest,
+      guestEmail: resolvedEmail,
       hostEmail: NOHA_EMAIL,
     });
 
-    setBooking({ date, time, pkg, level, guestName: resolvedGuest, events });
+    setBooking({
+      date,
+      time,
+      pkg,
+      level,
+      guestName: resolvedGuest,
+      guestEmail: resolvedEmail,
+      events,
+    });
     setStep(WIZARD_STEPS.length - 1);
-  }, [date, time, pkg, level, guestName]);
+  }, [date, time, pkg, level, guestName, guestEmail]);
 
   const { startApproval } = useApprovalLoading({ onComplete: finalizeBooking });
 
@@ -45,7 +57,13 @@ export function useBookingWizard() {
     setIsShareMode(true);
     setBooking({
       ...shared,
-      events: buildDualCalendarEvents({ ...shared, hostName: "Noha", hostEmail: NOHA_EMAIL }),
+      guestEmail: shared.guestEmail || "",
+      events: buildDualCalendarEvents({
+        ...shared,
+        hostName: "Noha",
+        hostEmail: NOHA_EMAIL,
+        guestEmail: shared.guestEmail || "",
+      }),
     });
   }, []);
 
@@ -63,13 +81,21 @@ export function useBookingWizard() {
       }
 
       if (step === 2) {
+        if (!guestName.trim()) {
+          alert("Please enter your name.");
+          return;
+        }
+        if (!isValidEmail(guestEmail)) {
+          alert("Please enter a valid email so you can receive your confirmation.");
+          return;
+        }
         approveBooking();
         return;
       }
 
       setStep((s) => s + 1);
     },
-    [step, date, time, approveBooking]
+    [step, date, time, guestName, guestEmail, approveBooking]
   );
 
   const goBack = useCallback(() => {
@@ -85,6 +111,7 @@ export function useBookingWizard() {
     setPkg(DEFAULT_PACKAGE);
     setLevel(DEFAULT_SERIOUSNESS);
     setGuestName("");
+    setGuestEmail("");
     window.history.replaceState({}, "", window.location.pathname);
   }, []);
 
@@ -97,6 +124,7 @@ export function useBookingWizard() {
     pkg,
     level,
     guestName,
+    guestEmail,
     booking,
     loading,
     loadingMsg,
@@ -107,6 +135,7 @@ export function useBookingWizard() {
     setPkg,
     setLevel,
     setGuestName,
+    setGuestEmail,
     handleNext,
     goBack,
     reset,

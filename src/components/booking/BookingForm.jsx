@@ -10,6 +10,7 @@ export default function BookingForm({
   pkg,
   level,
   guestName,
+  guestEmail,
   loading,
   loadingMsg,
   onDateChange,
@@ -17,6 +18,7 @@ export default function BookingForm({
   onPackageChange,
   onLevelChange,
   onGuestNameChange,
+  onGuestEmailChange,
   onSubmit,
   onBack,
 }) {
@@ -42,7 +44,9 @@ export default function BookingForm({
           pkg={pkg}
           level={level}
           guestName={guestName}
+          guestEmail={guestEmail}
           onGuestNameChange={onGuestNameChange}
+          onGuestEmailChange={onGuestEmailChange}
         />
       )}
 

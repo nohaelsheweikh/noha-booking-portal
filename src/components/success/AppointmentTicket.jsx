@@ -32,6 +32,12 @@ export default function AppointmentTicket({ booking }) {
           <span className="meta-key">Requested by</span>
           <span className="meta-val">{booking.guestName}</span>
         </div>
+        {booking.guestEmail && (
+          <div className="meta-item full">
+            <span className="meta-key">Email</span>
+            <span className="meta-val">{booking.guestEmail}</span>
+          </div>
+        )}
       </div>
 
       <div className="ticket-barcode" aria-hidden="true">

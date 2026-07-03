@@ -1,7 +1,16 @@
-import { DETAILS_STEP_DESC, GUEST_NAME_PLACEHOLDER } from "../../constants/copy";
+import { DETAILS_STEP_DESC, GUEST_EMAIL_PLACEHOLDER, GUEST_NAME_PLACEHOLDER } from "../../constants/copy";
 import { formatDisplayDate, formatDisplayTime } from "../../utils/calendar";
 
-export default function DetailsStep({ date, time, pkg, level, guestName, onGuestNameChange }) {
+export default function DetailsStep({
+  date,
+  time,
+  pkg,
+  level,
+  guestName,
+  guestEmail,
+  onGuestNameChange,
+  onGuestEmailChange,
+}) {
   return (
     <div className="step-content fade-in">
       <h2>Final details</h2>
@@ -18,6 +27,22 @@ export default function DetailsStep({ date, time, pkg, level, guestName, onGuest
           placeholder={GUEST_NAME_PLACEHOLDER}
           value={guestName}
           onChange={(e) => onGuestNameChange(e.target.value)}
+          required
+        />
+      </div>
+
+      <div className="field">
+        <label htmlFor="email">
+          <span className="field-icon">📧</span>
+          Your email
+        </label>
+        <input
+          type="email"
+          id="email"
+          placeholder={GUEST_EMAIL_PLACEHOLDER}
+          value={guestEmail}
+          onChange={(e) => onGuestEmailChange(e.target.value)}
+          required
         />
       </div>
 
