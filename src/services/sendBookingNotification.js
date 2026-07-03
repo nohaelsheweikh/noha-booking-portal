@@ -61,17 +61,11 @@ function emailTemplateParams(booking) {
   return {
     to_email: booking.guestEmail,
     to_name: booking.guestName,
-    guest_name: booking.guestName,
-    guest_email: booking.guestEmail,
-    host_name: HOST_NAME,
-    host_email: NOHA_EMAIL,
     appointment_date: displayDate,
     appointment_time: displayTime,
     package: booking.pkg,
     seriousness: booking.level,
     guest_calendar_link: booking.events.guest.googleUrl,
-    host_calendar_link: booking.events.host.googleUrl,
-    message: buildGuestEmailBody(booking),
     reply_to: NOHA_EMAIL,
     from_name: HOST_NAME,
   };
