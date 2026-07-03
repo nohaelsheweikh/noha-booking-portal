@@ -46,15 +46,11 @@ function buildGuestEmailBody(booking) {
   const displayTime = formatDisplayTime(booking.time);
 
   return (
-    `Hi ${booking.guestName},\n\n` +
     `Your appointment with ${HOST_NAME} is confirmed! You officially got on her calendar.\n\n` +
     `Date: ${displayDate}\n` +
     `Time: ${displayTime}\n` +
     `Package: ${booking.pkg}\n` +
-    `Seriousness: ${booking.level}\n\n` +
-    `Add to your calendar:\n${booking.events.guest.googleUrl}\n\n` +
-    `— ${HOST_NAME}\n` +
-    `(sent via ${PORTAL_NAME})`
+    `Seriousness: ${booking.level}`
   );
 }
 
@@ -184,7 +180,9 @@ export function buildMailtoLink(booking, recipient = "host") {
   const subject = isGuest
     ? `Your appointment with ${HOST_NAME} — ${displayDate}`
     : `Booking request — ${booking.guestName} · ${displayDate} at ${displayTime}`;
-  const body = isGuest ? buildGuestEmailBody(booking) : buildHostEmailBody(booking);
+  const body = isGuest
+    ? `Hi ${booking.guestName},\n\n${buildGuestEmailBody(booking)}\n\nAdd to your calendar:\n${booking.events.guest.googleUrl}\n\nSee you soon!\n— ${HOST_NAME}`
+    : buildHostEmailBody(booking);
 
   return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
