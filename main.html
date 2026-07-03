@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noha Booking Access Portal™</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background: radial-gradient(circle at top, #fff1f5, #f7e8ff 45%, #f5f5f5);
+      color: #2b1b2f;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+
+    .card {
+      max-width: 620px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(14px);
+      border-radius: 28px;
+      padding: 34px;
+      box-shadow: 0 24px 70px rgba(70, 25, 90, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #2b1b2f;
+      color: white;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 38px;
+      line-height: 1.05;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: #5f4a66;
+      margin: 18px 0 26px;
+      line-height: 1.5;
+    }
+
+    .notice {
+      background: #fff6fb;
+      border: 1px dashed #d48bb8;
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 24px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin: 18px 0 8px;
+    }
+
+    input, select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid #d8c7de;
+      font-size: 15px;
+      background: white;
+    }
+
+    button, .calendar-link {
+      margin-top: 22px;
+      width: 100%;
+      border: 0;
+      border-radius: 16px;
+      padding: 15px 18px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      background: #2b1b2f;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+      box-sizing: border-box;
+    }
+
+    button:hover, .calendar-link:hover {
+      opacity: 0.92;
+    }
+
+    .result {
+      display: none;
+      margin-top: 26px;
+      padding: 20px;
+      border-radius: 20px;
+      background: #f2e9ff;
+      line-height: 1.6;
+    }
+
+    .fine-print {
+      margin-top: 22px;
+      color: #7a677f;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+    <div class="badge">Friendship Scheduling Department</div>
+
+    <h1>Noha Booking Access Portal™</h1>
+
+    <p class="subtitle">
+      Due to your highly protected calendar and advanced scheduling requirements,
+      dinner with Noha must now be requested through the official appointment system.
+    </p>
+
+    <div class="notice">
+      Walk-ins are not supported. Emergency gossip may be considered on a case-by-case basis.
+    </div>
+
+    <label for="date">Select appointment date</label>
+    <input type="date" id="date" />
+
+    <label for="time">Select appointment time</label>
+    <input type="time" id="time" />
+
+    <label for="type">Dinner package</label>
+    <select id="type">
+      <option>Food + gossip</option>
+      <option>Food + emotional support</option>
+      <option>Food + roasting your calendar</option>
+      <option>Full friendship board meeting with dessert</option>
+    </select>
+
+    <label for="level">Scheduling seriousness level</label>
+    <select id="level">
+      <option>Casual</option>
+      <option>Corporate friendship</option>
+      <option>Board meeting</option>
+      <option>Government-level appointment</option>
+    </select>
+
+    <button onclick="generateAppointment()">Request Dinner Appointment</button>
+
+    <section class="result" id="result">
+      <strong>Appointment request approved.</strong>
+      <p id="summary"></p>
+
+      <a id="googleCalendarLink" class="calendar-link" target="_blank">
+        Add to Google Calendar
+      </a>
+
+      <a id="icsDownload" class="calendar-link" download="noha-dinner-appointment.ics">
+        Download Calendar Invite
+      </a>
+    </section>
+
+    <p class="fine-print">
+      Cancellation policy: cancelling within 24 hours may result in dramatic sighing,
+      emotional prosecution, and/or extra dessert being withheld.
+    </p>
+  </main>
+
+  <script>
+    function formatGoogleDate(date, time, durationHours = 3) {
+      const start = new Date(`${date}T${time}`);
+      const end = new Date(start.getTime() + durationHours * 60 * 60 * 1000);
+
+      function toGoogleFormat(d) {
+        return d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+      }
+
+      return {
+        start: toGoogleFormat(start),
+        end: toGoogleFormat(end)
+      };
+    }
+
+    function generateICS(date, time, title, description, location) {
+      const start = new Date(`${date}T${time}`);
+      const end = new Date(start.getTime() + 3 * 60 * 60 * 1000);
+
+      function toICSFormat(d) {
+        return d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+      }
+
+      return `
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Noha Dinner Access Portal//EN
+BEGIN:VEVENT
+UID:${Date.now()}@noha-dinner-portal
+DTSTAMP:${toICSFormat(new Date())}
+DTSTART:${toICSFormat(start)}
+DTEND:${toICSFormat(end)}
+SUMMARY:${title}
+DESCRIPTION:${description}
+LOCATION:${location}
+END:VEVENT
+END:VCALENDAR
+      `.trim();
+    }
+
+    function generateAppointment() {
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+      const type = document.getElementById("type").value;
+      const level = document.getElementById("level").value;
+
+      if (!date || !time) {
+        alert("Please select a date and time. Even friendship now requires admin.");
+        return;
+      }
+
+      const title = "Dinner Appointment with Noha";
+      const location = "Noha’s place";
+      const description =
+        `Your official dinner appointment has been approved. Package: ${type}. Seriousness level: ${level}. Please arrive hungry and ready to explain why seeing you requires calendar infrastructure.`;
+
+      const gDate = formatGoogleDate(date, time);
+
+      const googleUrl =
+        "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+        `&text=${encodeURIComponent(title)}` +
+        `&dates=${gDate.start}/${gDate.end}` +
+        `&details=${encodeURIComponent(description)}` +
+        `&location=${encodeURIComponent(location)}`;
+
+      const icsContent = generateICS(date, time, title, description, location);
+      const blob = new Blob([icsContent], { type: "text/calendar" });
+      const icsUrl = URL.createObjectURL(blob);
+
+      document.getElementById("summary").innerText =
+        `Your selected package is "${type}" with seriousness level "${level}". Please add this sacred appointment to your calendar immediately.`;
+
+      document.getElementById("googleCalendarLink").href = googleUrl;
+      document.getElementById("icsDownload").href = icsUrl;
+      document.getElementById("result").style.display = "block";
+    }
+  </script>
+</body>
+</html>
