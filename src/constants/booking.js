@@ -1,5 +1,5 @@
 export const PACKAGES = [
-  { id: "gossip", label: "Food + gossip", emoji: "🗣️", tag: "Most popular" },
+  { id: "chat", label: "Food + chat", emoji: "🗣️", tag: "Most popular" },
   { id: "support", label: "Food + emotional support", emoji: "🫂", tag: "Premium" },
   { id: "roast", label: "Food + roasting your calendar", emoji: "📅", tag: "Meta" },
   { id: "board", label: "Full friendship board meeting", emoji: "🍰", tag: "With dessert" },
