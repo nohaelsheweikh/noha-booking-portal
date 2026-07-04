@@ -333,35 +333,6 @@ body {
   transform: scale(1.08);
 }
 
-.booked-out-notice {
-  text-align: center;
-  padding: 48px 32px;
-}
-
-.booked-out-icon {
-  font-size: 3rem;
-  margin-bottom: 12px;
-}
-
-.booked-out-notice h2 {
-  margin: 0 0 12px;
-  font-size: 1.6rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-}
-
-.booked-out-date {
-  margin: 0 0 16px;
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--purple);
-}
-
-.booked-out-notice .step-desc {
-  margin: 0 auto;
-  max-width: 420px;
-}
-
 .form-card {
   background: var(--glass);
   backdrop-filter: blur(20px);
