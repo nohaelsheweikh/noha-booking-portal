@@ -4,6 +4,7 @@ import {
   getMinBookingDate,
 } from "../../constants/availability";
 import { WHEN_STEP_DESC } from "../../constants/copy";
+import { formatDisplayDate } from "../../utils/calendar";
 import TimePicker from "../TimePicker";
 
 export default function WhenStep({ date, time, onDateChange, onTimeChange }) {
@@ -31,7 +32,10 @@ export default function WhenStep({ date, time, onDateChange, onTimeChange }) {
           <span className="field-icon">📅</span>
           Preferred date
         </label>
-        <div className="date-input-wrap" onClick={openDatePicker}>
+        <div className="date-input-wrap">
+          <div className={`date-input-display ${date ? "has-value" : ""}`} aria-hidden="true">
+            {date ? formatDisplayDate(date, time || "12:00") : "Tap to select a date"}
+          </div>
           <input
             ref={inputRef}
             type="date"
@@ -39,13 +43,9 @@ export default function WhenStep({ date, time, onDateChange, onTimeChange }) {
             value={date}
             onChange={(event) => onDateChange(event.target.value)}
             min={minDate}
-            className={date ? "" : "date-input-empty"}
+            className="date-input-native"
+            onClick={openDatePicker}
           />
-          {!date && (
-            <span className="date-placeholder" aria-hidden="true">
-              Tap to select a date
-            </span>
-          )}
           <span className="date-input-icon" aria-hidden="true">
             📅
           </span>

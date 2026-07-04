@@ -423,60 +423,52 @@ body {
   display: block;
 }
 
-.field input[type="date"] {
-  min-height: 52px;
-  line-height: 1.4;
-  padding: 16px 48px 16px 16px;
-  cursor: pointer;
-}
-
-.field input[type="date"]::-webkit-date-and-time-value {
-  text-align: left;
-  min-width: 0;
-}
-
 .date-input-wrap {
   position: relative;
+  display: flex;
+  align-items: center;
   width: 100%;
+  min-height: 54px;
+  padding: 14px 48px 14px 16px;
+  border-radius: 14px;
+  border: 1.5px solid #e0d4ea;
+  background: white;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .date-input-wrap:focus-within {
-  outline: none;
-}
-
-.date-input-wrap:focus-within input {
   border-color: var(--purple-light);
   box-shadow: 0 0 0 4px rgba(107, 63, 160, 0.12);
 }
 
-.date-input-empty {
-  color: transparent;
-}
-
-.date-input-empty::-webkit-datetime-edit,
-.date-input-empty::-webkit-datetime-edit-fields-wrapper,
-.date-input-empty::-webkit-datetime-edit-text,
-.date-input-empty::-webkit-datetime-edit-month-field,
-.date-input-empty::-webkit-datetime-edit-day-field,
-.date-input-empty::-webkit-datetime-edit-year-field {
-  color: transparent;
-}
-
-.date-placeholder {
-  position: absolute;
-  left: 16px;
-  right: 48px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--ink-muted);
+.date-input-display {
+  flex: 1;
+  min-width: 0;
   font-size: 1rem;
   font-weight: 500;
-  line-height: 1.3;
-  pointer-events: none;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.45;
+  color: var(--ink-muted);
+  word-break: break-word;
+}
+
+.date-input-display.has-value {
+  color: var(--ink);
+}
+
+.date-input-native {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .date-input-icon {
@@ -488,6 +480,7 @@ body {
   line-height: 1;
   pointer-events: none;
   opacity: 0.55;
+  z-index: 1;
 }
 
 .field-hint {
@@ -1598,19 +1591,17 @@ body {
     justify-content: center;
   }
 
-  .field input[type="date"] {
-    font-size: 16px;
-    min-height: 54px;
-    padding: 16px 52px 16px 14px;
+  .date-input-wrap {
+    min-height: 56px;
+    padding: 15px 52px 15px 14px;
   }
 
-  .date-placeholder {
-    left: 14px;
-    right: 52px;
-    font-size: 0.95rem;
+  .date-input-display {
+    font-size: 16px;
+    line-height: 1.5;
   }
 
   .date-input-icon {
-    right: 16px;
+    right: 14px;
   }
 }
