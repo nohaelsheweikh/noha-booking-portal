@@ -1,4 +1,4 @@
-export const BOOKING_OPENS_ON = "2026-07-13";
+export const BOOKING_OPENS_ON = "2026-07-10";
 
 export function getMinBookingDate() {
   const today = new Date().toISOString().split("T")[0];
