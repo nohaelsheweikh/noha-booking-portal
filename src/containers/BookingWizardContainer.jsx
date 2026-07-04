@@ -2,6 +2,8 @@ import {
   HERO_SUBTITLE,
   PORTAL_NAME,
 } from "../constants/copy";
+import { isBeforeBookingOpens } from "../constants/availability";
+import BookedOutNotice from "../components/booking/BookedOutNotice";
 import BookingForm from "../components/booking/BookingForm";
 import FinePrint from "../components/layout/FinePrint";
 import Hero from "../components/layout/Hero";
@@ -33,27 +35,33 @@ export default function BookingWizardContainer({ wizard }) {
     <PageLayout>
       <Hero title={PORTAL_NAME} subtitle={HERO_SUBTITLE} />
 
-      <StepIndicator currentStep={step} />
+      {isBeforeBookingOpens() ? (
+        <BookedOutNotice />
+      ) : (
+        <>
+          <StepIndicator currentStep={step} />
 
-      <BookingForm
-        step={step}
-        date={date}
-        time={time}
-        pkg={pkg}
-        level={level}
-        guestName={guestName}
-        guestEmail={guestEmail}
-        loading={loading}
-        loadingMsg={loadingMsg}
-        onDateChange={setDate}
-        onTimeChange={setTime}
-        onPackageChange={setPkg}
-        onLevelChange={setLevel}
-        onGuestNameChange={setGuestName}
-        onGuestEmailChange={setGuestEmail}
-        onSubmit={handleNext}
-        onBack={goBack}
-      />
+          <BookingForm
+            step={step}
+            date={date}
+            time={time}
+            pkg={pkg}
+            level={level}
+            guestName={guestName}
+            guestEmail={guestEmail}
+            loading={loading}
+            loadingMsg={loadingMsg}
+            onDateChange={setDate}
+            onTimeChange={setTime}
+            onPackageChange={setPkg}
+            onLevelChange={setLevel}
+            onGuestNameChange={setGuestName}
+            onGuestEmailChange={setGuestEmail}
+            onSubmit={handleNext}
+            onBack={goBack}
+          />
+        </>
+      )}
 
       <FinePrint />
     </PageLayout>

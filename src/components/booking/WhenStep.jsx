@@ -1,3 +1,4 @@
+import { getMinBookingDate } from "../../constants/availability";
 import { WHEN_STEP_DESC } from "../../constants/copy";
 import TimePicker from "../TimePicker";
 
@@ -17,7 +18,7 @@ export default function WhenStep({ date, time, onDateChange, onTimeChange }) {
           id="date"
           value={date}
           onChange={(e) => onDateChange(e.target.value)}
-          min={new Date().toISOString().split("T")[0]}
+          min={getMinBookingDate()}
         />
       </div>
 

@@ -43,3 +43,9 @@ export const CALENDAR_SECTION_SUB =
 
 export const GUEST_CALENDAR_SUB = "Your proof that you actually got on her calendar";
 export const HOST_CALENDAR_SUB = "For Noha — because she definitely didn't enter this herself";
+
+export const BOOKED_OUT_TITLE = "Calendar fully booked";
+export const bookedOutMessage = (opensOn) =>
+  `Noha's calendar is completely full until ${opensOn}. ` +
+  "Every slot is taken — no walk-ins, no DMs, no exceptions. " +
+  "Check back when new availability opens.";

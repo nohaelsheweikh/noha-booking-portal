@@ -5,6 +5,7 @@ import {
   DEFAULT_TIME,
   WIZARD_STEPS,
 } from "../constants/booking";
+import { isDateBookable } from "../constants/availability";
 import { NOHA_EMAIL } from "../constants/config";
 import { buildDualCalendarEvents, parseShareParams } from "../utils/calendar";
 import { isValidEmail } from "../utils/emailValidation";
@@ -77,6 +78,11 @@ export function useBookingWizard() {
 
       if (step === 0 && (!date || !time)) {
         alert("Pick a date and time — friendship requires timestamps now.");
+        return;
+      }
+
+      if (step === 0 && !isDateBookable(date)) {
+        alert("That date isn't available yet — Noha's calendar is fully booked until then.");
         return;
       }
 
