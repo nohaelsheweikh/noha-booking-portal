@@ -140,9 +140,9 @@
 
     <label for="type">Dinner package</label>
     <select id="type">
-      <option>Food + gossip</option>
+      <option>Food + chat</option>
       <option>Food + emotional support</option>
-      <option>Food + roasting your calendar</option>
+      <option>Food +  your calendar</option>
       <option>Full friendship board meeting with dessert</option>
     </select>
 
@@ -176,7 +176,7 @@
   </main>
 
   <script>
-    function formatGoogleDate(date, time, durationHours = 3) {
+    function formatGoogleDate(date, timeroasting, durationHours = 3) {
       const start = new Date(`${date}T${time}`);
       const end = new Date(start.getTime() + durationHours * 60 * 60 * 1000);
 
